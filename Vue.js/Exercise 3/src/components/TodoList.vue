@@ -1,13 +1,15 @@
 <template>
   <div>
     <h1>Todo list by Hans </h1>
-  <input type="text" placeholder="Add todo here" v-model="description" />
+    <input type="text" placeholder="Add todo here" v-model="description" />
+    <input type="text" placeholder="Date" v-model="date" />
   <button v-on:click="add">Add</button><br/>
 
   <table>
     <tbody>
-    <tr v-for="(todo, index) in todos" v-bind:key="index"><td>{{todo}}
-      </td></tr>
+    <tr v-for="(todo, index) in todos" v-bind:key="index"><td><li>{{todo.description}}</li>
+      <li>{{todo.date}}</li>
+    </td></tr>
     </tbody>
   </table>
   </div>
@@ -19,15 +21,23 @@ export default {
   name: 'TodoList',
   data() {
     return {
-      todos: [],
-      description: ''
-      }
-    },
+      todos: [{
+        description: 'Example todo task',
+        date: '01-01-1970',
+      }],
+      description: '',
+      date: ''
+    }
+  },
   methods: {
     add: function()
     {
-      this.todos.push(this.description);
-      this.description = ''
+      this.todos.push( {
+        description: this.description,
+        date: this.date }
+        );
+      this.description = '';
+      this.date = ''
     }
   },
 }
