@@ -3,11 +3,20 @@
         <v-data-table
                 :headers="headers"
                 :items="cars"
-                :items-per-page="5"
-                class="elevation-1"
-        ></v-data-table>
+                :items-per-page="6"
+                class="elevation-1">
+            <template v-slot:item.actions="{ item }">
+                <v-icon
+                        small
+                        @click="deleteItem(item)">
+                    mdi-delete
+                </v-icon>
+            </template>
+        </v-data-table>
     </div>
 </template>
+
+
 
 <script>
     import axios from 'axios';
@@ -22,18 +31,19 @@
                     { text: 'Color', value: 'color' },
                     { text: 'Year', value: 'year' },
                     { text: 'Price', value: 'price' },
-                    { text: 'Fuel', value: 'fuel' },
+                    { text: 'Actions', value: 'actions', sortable: false  },
                 ]
             }
         },
         methods: {
-            del: function(url)
+            deleteItem: function(item)
             {
                 axios
-                    .delete(url)
+                    .delete(item._links.self.href)
                     .get('https://carstockrest.herokuapp.com/cars')
                     .then(response => (this.cars = response.data._embedded.cars))
             }},
+
         mounted() {
             axios
                 .get('https://carstockrest.herokuapp.com/cars')
