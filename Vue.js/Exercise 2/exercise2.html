@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Vue.js calculator">
+    <meta name="author" content="Hans Kartner">
+    <title>Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+
+<body>
+<script>
+    window.addEventListener('load', function () {
+        var app = new Vue({
+            el: '#app',
+            data: {
+                num1: '0',
+                num2: '0',
+                result: '0',
+            },
+            methods: {
+                substraction: function() {
+                    this.result = this.num1 - this.num2;
+                },
+                addition: function() {
+                    this.result = Number(this.num1) + Number(this.num2);
+                },
+            }
+        })
+    })
+
+</script>
+
+<div id="app">
+    <div><b>Answer is:</b> {{ result }}</div>
+    <input type="number" v-model="num1" placeholder="0">
+    <input type="number" v-model="num2" placeholder="0">
+    <button v-on:click="addition">+</button>
+    <button v-on:click="substraction">-</button>
+</div>
+
+</body>
+</html>
