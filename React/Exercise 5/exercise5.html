@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="Github repositories list" name="description">
+    <meta content="Hans Kärtner" name="author">
+    <title>Github repositories list</title>
+</head>
+<body>
+<!-- Root container for react components -->
+<div id='root'></div>
+
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+
+    class GithubList extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {listItems: []};
+        }
+
+        componentDidMount() {
+            fetch('https://api.github.com/search/repositories?q=react')
+                .then((response) => response.json())
+                .then((responseData) => {
+                    this.setState({
+                            listItems: responseData.items,
+                        });
+                    })
+        }
+        render() {
+            const itemRows = this.state.listItems.map((repository) =>
+                <tr key={repository.full_name}>
+                    <td>{repository.full_name}</td>
+                    <td>{repository.html_url}</td>
+                </tr>
+            )
+            return (
+                <div>
+                    <div><h2>Github repositories list</h2></div>
+                    <div>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th>Repository</th>
+                                <th>Link</th>
+                            </tr>
+                            {itemRows}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        }
+    }
+    ReactDOM.render(<GithubList />, document.getElementById("root"));
+
+</script>
+</body>
+</html>
