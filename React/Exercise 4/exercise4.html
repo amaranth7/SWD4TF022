@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="Openweathermap API" name="description">
+    <meta content="Hans Kärtner" name="author">
+    <title>Weather checker</title>
+</head>
+<body>
+<!-- Root container for react components -->
+<div id='root'></div>
+
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+
+    const Weather = () => {
+        const [temperature, setTemperature] = React.useState('');
+        const [cloudiness, setCloudiness] = React.useState('');
+        const fetchData = () => {
+            fetch('https://api.openweathermap.org/data/2.5/weather?q=Helsinki&APPID=b05325bd7c796559dc6374dfd0118555&units=metric')
+                .then(response => response.json())
+                .then(response => {
+                    setTemperature(response.main.temp);
+                    setCloudiness(response.weather[0].description);
+                })
+        }
+        React.useEffect(() => {
+                fetchData();
+            } ,[]
+        )
+        return (
+            <div>
+                <div>Helsinki weather</div>
+                <div>Temperature: {temperature}°C</div>
+                <div>Cloudiness: {cloudiness}</div>
+            </div>
+        );
+    };
+    ReactDOM.render(<Weather />, document.getElementById("root"));
+
+</script>
+</body>
+</html>
