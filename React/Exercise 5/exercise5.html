@@ -35,7 +35,7 @@
             const itemRows = this.state.listItems.map((repository) =>
                 <tr key={repository.full_name}>
                     <td>{repository.full_name}</td>
-                    <td>{repository.html_url}</td>
+                    <td><a href={repository.html_url}>{repository.html_url}</a></td>
                 </tr>
             )
             return (
