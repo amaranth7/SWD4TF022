@@ -1,9 +1,19 @@
 <template>
     <div>
+        <v-card-title>
+        <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+        ></v-text-field>
+            </v-card-title>
         <v-data-table
                 :headers="headers"
                 :items="customers"
                 :items-per-page="6"
+                :search="search"
                 class="elevation-1">
             <template v-slot:item.actions="{ item }">
                 <v-icon
@@ -25,6 +35,7 @@
         data() {
             return {
                 customers: [],
+                search: '',
                 headers: [
                     {text: 'First name', value: 'firstname'},
                     {text: 'Surname', value: 'lastname'},
