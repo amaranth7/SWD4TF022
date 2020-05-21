@@ -1,9 +1,15 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-toolbar class="headline"> <span>Customer list</span>
+      <v-toolbar class="headline"> <span>Customer management tool</span>
+        <template v-slot:extension>
+          <v-tabs align-with-title>
+            <v-tab to="/customerlist">Customer list</v-tab>
+            <v-tab to="/traininglist">Training list</v-tab>
+            <v-tab to="/calendar">Calendar</v-tab>
+          </v-tabs>
+        </template>
       </v-toolbar>
-    </v-app-bar>
+
     <v-content>
       <CustomersList/>
     </v-content>
@@ -16,7 +22,7 @@
   export default {
     name: 'App',
     components: {
-      CustomersList
+      CustomersList,
     }
   }
 </script>
